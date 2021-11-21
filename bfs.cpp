@@ -23,6 +23,12 @@ public:
 
     // BFS traversal from a given source s
     void BFS(int s);
+
+    // Create graph using user entered data
+    int inputGraph();
+
+    // Generate graph using data from dummy file
+    int generateDummyGraph();
 };
 
 Graph::Graph(int V)
@@ -71,6 +77,57 @@ void Graph::BFS(int s)
     }
 }
 
+int Graph::inputGraph()
+{
+    int v, num, edges = 0, i, j;
+    cout << "Enter number of vertices: ";
+    cin >> v;
+    cout << "Enter graph data in matrix format-\n";
+
+    for (i = 0; i < v; i++)
+    {
+        for (j = 0; j < v; j++)
+        {
+            cin >> num;
+            if (num == 1)
+            {
+                this->addEdge(i, j);
+                edges++;
+            }
+        }
+    }
+
+    return edges;
+}
+
+int Graph::generateDummyGraph()
+{
+    int i, j, num, edges = 0;
+    cout << "\nGenerating graph using dummy data...\n";
+    ifstream file("dummy.txt");
+    string stream, ch;
+    i = 0;
+
+    while (getline(file, stream))
+    {
+        j = 0;
+        stringstream line(stream);
+        while (getline(line, ch, ','))
+        {
+            num = stoi(ch);
+            if (num == 1)
+            {
+                this->addEdge(i, j);
+                edges++;
+            }
+            j++;
+        }
+        i++;
+    }
+
+    return edges;
+}
+
 Graph g(10000);
 
 int main()
@@ -83,49 +140,10 @@ int main()
 
     // Generate graph using data entered by the user
     if (option == 2)
-    {
-        cout << "Enter number of vertices: ";
-        cin >> v;
-        cout << "Enter graph data in matrix format-\n";
-
-        for (i = 0; i < v; i++)
-        {
-            for (j = 0; j < v; j++)
-            {
-                cin >> num;
-                if (num == 1)
-                {
-                    g.addEdge(i, j);
-                    edges++;
-                }
-            }
-        }
-    }
+        edges = g.inputGraph();
     // Generate graph using dummy data
     else if (option == 1)
-    {
-        cout << "\nGenerating graph using dummy data...\n";
-        ifstream file("dummy.txt");
-        string stream, ch;
-        i = 0;
-
-        while (getline(file, stream))
-        {
-            j = 0;
-            stringstream line(stream);
-            while (getline(line, ch, ','))
-            {
-                num = stoi(ch);
-                if (num == 1)
-                {
-                    g.addEdge(i, j);
-                    edges++;
-                }
-                j++;
-            }
-            i++;
-        }
-    }
+        edges = g.generateDummyGraph();
     else
     {
         cout << "\nInvalid option!\nTerminating the program...!\n\n";

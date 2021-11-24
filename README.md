@@ -1,5 +1,6 @@
 # Parallel_BFS
-Implement BFS using parallel algorithms strategy and compare it with serial bfs
+Implement BFS using parallel algorithms strategy and compare it with serial BFS.
+Parallel execution is done using OpenMP multi-threading.
 
 
 ## Description of files

@@ -8,11 +8,11 @@ using namespace std;
 int main()
 {
     int n, N = 10000, edges = 0;
-    srand(time(0));
-
     cout << "Generating data...";
 
-    ofstream file("dummy.txt");
+    srand(time(0));
+
+    ofstream file("dummy2.txt");
     string st;
 
     for (int i = 0; i < N; i++)

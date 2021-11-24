@@ -165,11 +165,12 @@ void Graph::parallel_BFS(int s)
         for (int j = 0; j < queue[turn].size(); j++)
         {
             s = queue[turn][j];
-            // cout << s << " ";
+        // cout << s << " ";
 
-            // Get all adjacent vertices of the dequeued
-            // vertex s. If a adjacent has not been visited,
-            // then mark it visited and enqueue it in the next queue
+        // Get all adjacent vertices of the dequeued
+        // vertex s. If a adjacent has not been visited,
+        // then mark it visited and enqueue it in the next queue
+        #pragma omp parallel num_threads(adj[s].size())
             for (auto i = adj[s].begin(); i != adj[s].end(); ++i)
             {
                 // Critical section to avoid race condition
@@ -182,6 +183,9 @@ void Graph::parallel_BFS(int s)
             }
         }
 
+        // Clear the current queue to use it for enqueuing
+        // vertices int the next iteration
+        queue[turn].clear();
         turn = (turn + 1) % 2;
     }
 }
@@ -191,6 +195,7 @@ Graph g(10000);
 int main()
 {
     int option, v, num, edges = 0, i, j, source = 1;
+    char ch;
 
     cout << "1) Use dummy data.\n2) Enter data manualy.\n\n";
     cout << "Select your option(1/2): ";
@@ -211,36 +216,42 @@ int main()
     // Display the number of edges in the graph
     cout << "\nNumber of edges: " << edges << endl;
 
-    // Get the starting vertex
-    cout << "\nEnter starting vertex: ";
-    cin >> source;
+    do
+    {
+        // Get the starting vertex
+        cout << "\nEnter starting vertex: ";
+        cin >> source;
 
-    cout << "Serial Breadth First Search Traversal started...";
+        cout << "\nSerial Breadth First Search Traversal started...";
 
-    clock_t start, end;
-    double execution_time;
+        clock_t start, end;
+        double execution_time;
 
-    // Serial BFS function with timed execution
-    start = clock();
-    g.BFS(source);
-    end = clock();
+        // Serial BFS function with timed execution
+        start = clock();
+        g.BFS(source);
+        end = clock();
 
-    execution_time = double(end - start) / double(CLOCKS_PER_SEC);
+        execution_time = double(end - start) / double(CLOCKS_PER_SEC);
 
-    cout << "\nSerial BFS Completed!\nExecution time: " << fixed << execution_time << setprecision(5) << " seconds.\n\n";
+        cout << "\nSerial BFS Completed!\nExecution time: " << fixed << execution_time << setprecision(5) << " seconds.\n\n";
 
-    cout << "Parallel Breadth First Search Traversal started...";
+        cout << "Parallel Breadth First Search Traversal started...";
 
-    double stime, ftime;
+        double stime, ftime;
 
-    // Parallel BFS function with timed execution
-    stime = omp_get_wtime();
-    g.BFS(source);
-    ftime = omp_get_wtime();
+        // Parallel BFS function with timed execution
+        stime = omp_get_wtime();
+        g.BFS(source);
+        ftime = omp_get_wtime();
 
-    execution_time = ftime - stime;
+        execution_time = ftime - stime;
 
-    cout << "\nParallel BFS Completed!\nExecution time: " << fixed << execution_time << setprecision(5) << " seconds.\n\n";
+        cout << "\nParallel BFS Completed!\nExecution time: " << fixed << execution_time << setprecision(5) << " seconds.\n\n";
+
+        cout << "Perform another traversal? (y/n): ";
+        cin >> ch;
+    } while (ch == 'y' || ch == 'Y');
 
     return 0;
 }

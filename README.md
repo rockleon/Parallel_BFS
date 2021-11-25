@@ -19,3 +19,15 @@ Main function of both Serial and Parallel BFS code as well as the interface code
 g++ -o a.out -fopenmp bfs.cpp
 ./a.out
 ```
+
+
+## Execution time 
+
+| Vertices      | Edges         | Serial Execution(ms)   | Parallel Execution(ms) |
+| ------------- |:-------------:|:------------------:|:------------------:|
+| 500           | 124954        | 3.38600            | 2.50220            |
+| 1000          | 500048        | 10.34400           | 9.48770            |
+| 2000          | 1999187       | 42.66100           | 38.94060           |
+| 5000          | 12498813      | 233.63800          | 229.53920          |
+| 10,000        | 49996977      | 1025.71700          | 959.95050          |
+| 20,000        | 199980707     |  |    |

@@ -76,7 +76,7 @@ int Graph::generateDummyGraph()
 {
     int i, j, num, edges = 0;
     cout << "\nGenerating graph using dummy data...\n";
-    ifstream file("dummy.txt");
+    ifstream file("dummy-5000.txt");
     string stream, ch;
     i = 0;
 
@@ -174,10 +174,10 @@ void Graph::parallel_BFS(int s)
             for (auto i = adj[s].begin(); i != adj[s].end(); ++i)
             {
                 // Critical section to avoid race condition
-                #pragma omp critical
                 if (!visited[*i])
                 {
                     visited[*i] = true;
+                    #pragma omp critical
                     queue[next_turn].push_back(*i);
                 }
             }
@@ -234,7 +234,7 @@ int main()
 
         execution_time = double(end - start) / double(CLOCKS_PER_SEC);
 
-        cout << "\nSerial BFS Completed!\nExecution time: " << fixed << execution_time << setprecision(5) << " seconds.\n\n";
+        cout << "\nSerial BFS Completed!\nExecution time: " << fixed << execution_time*1000 << setprecision(5) << " miliseconds.\n\n";
 
         cout << "Parallel Breadth First Search Traversal started...";
 
@@ -247,7 +247,7 @@ int main()
 
         execution_time = ftime - stime;
 
-        cout << "\nParallel BFS Completed!\nExecution time: " << fixed << execution_time << setprecision(5) << " seconds.\n\n";
+        cout << "\nParallel BFS Completed!\nExecution time: " << fixed << execution_time*1000 << setprecision(5) << " miliseconds.\n\n";
 
         cout << "Perform another traversal? (y/n): ";
         cin >> ch;

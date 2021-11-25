@@ -7,12 +7,12 @@ using namespace std;
 
 int main()
 {
-    int n, N = 10000, edges = 0;
+    int n, N = 5000, edges = 0;
     cout << "Generating data...";
 
     srand(time(0));
 
-    ofstream file("dummy2.txt");
+    ofstream file("dummy-5000.txt");
     string st;
 
     for (int i = 0; i < N; i++)

@@ -7,12 +7,12 @@ using namespace std;
 
 int main()
 {
-    int n, N = 5000, edges = 0;
+    int n, N = 1000, edges = 0;
     cout << "Generating data...";
 
     srand(time(0));
 
-    ofstream file("dummy-5000.txt");
+    ofstream file("dummy-1000.txt");
     string st;
 
     for (int i = 0; i < N; i++)
@@ -34,7 +34,7 @@ int main()
 
     file.close();
     cout << "\n\nFile Generated!" << endl;
-    cout << "Number of edges: " << edges << endl
+    cout << "Number of edges: " << edges/2 << endl
          << endl;
     return 0;
 }

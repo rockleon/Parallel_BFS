@@ -13,8 +13,8 @@ Main function having both Serial and Parallel BFS code. It has an option to manu
 
 ### test_omp.cpp
 Code to check Openmp version and maximum num of threads. Compile this file using this command -
-```
-sh g++ -std=c++11 -fopenmp test_omp.cpp
+```sh
+g++ -std=c++11 -fopenmp test_omp.cpp
 ```
 
 

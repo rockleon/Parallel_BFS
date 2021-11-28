@@ -80,7 +80,7 @@ int Graph::generateDummyGraph()
 {
     int i, j, num, edges = 0;
     cout << "\nGenerating graph using dummy data...\n";
-    ifstream file("dummy-10.txt");
+    ifstream file("data/dummy-10.txt");
     string stream, ch;
     i = 0;
 

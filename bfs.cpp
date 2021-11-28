@@ -125,8 +125,8 @@ void Graph::BFS(int s)
         if(verbose) cout << s << " ";
         queue.pop_front();
 
-        // Get all adjacent vertices of the dequeued
-        // vertex s. If a adjacent has not been visited,
+        // Get all adjacent vertices of the dequeued vertex s.
+        // If an adjacent has not been visited,
         // then mark it visited and enqueue it
         for (auto i = adj[s].begin(); i != adj[s].end(); ++i)
         {
@@ -148,9 +148,9 @@ void Graph::parallel_BFS(int source)
     for (i = 0; i < V; i++)
         visited[i] = false;
 
-    // Two Queues for parallel BFS
-    // One queue to loop through pushed vertices
-    // Another queue to push vertices for next iteration.
+    // Two Queues for parallel BFS are used,
+    // One queue to loop through enqueued vertices
+    // Another queue to push vertices for next iteration
     vector<vector<int>> queue = {{}, {}};
     int turn = 0, next_turn = 1;
 
@@ -193,8 +193,8 @@ void Graph::parallel_BFS(int source)
                 // cout << source << " ";
                 if(verbose) cout << "\nthread: " << omp_get_thread_num() << "  vertex: " << source << endl;
 
-                // Get all adjacent vertices of the dequeued
-                // vertex s. If a adjacent has not been visited,
+                // Get all adjacent vertices of the dequeued vertex source
+                // If an adjacent has not been visited,
                 // then mark it visited and enqueue it in the next queue
                 for (auto i = adj[source].begin(); i != adj[source].end(); ++i)
                 {
@@ -210,7 +210,7 @@ void Graph::parallel_BFS(int source)
             }
 
         // Clear the current queue to use it for enqueuing
-        // vertices int the next iteration
+        // vertices in the next iteration
         if(verbose) {
             cout << "\nOut of the loop!\n";
             cout << "queue " << turn << " - ";

@@ -1,5 +1,6 @@
 *.out
 *.txt
 *.docx
+.vscode
 
 data

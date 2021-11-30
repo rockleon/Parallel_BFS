@@ -18,7 +18,7 @@ class Graph
     // Pointer to an array containing adjacency lists
     list<int> *adj;
 
-    // for verbosity
+    // for verbosity in the program
     int verbose;
 
 public:
@@ -45,6 +45,7 @@ Graph::Graph(int V)
 {
     this->V = V;
     adj = new list<int>[V];
+    // 1 -> verbose; 2 -> not verbose
     this->verbose = 0;
 }
 
@@ -80,7 +81,8 @@ int Graph::generateDummyGraph()
 {
     int i, j, num, edges = 0;
     cout << "\nGenerating graph using dummy data...\n";
-    ifstream file("data/dummy-10.txt");
+    ifstream file("dummy.txt");
+    // ifstream file("data/dummy-10000.txt");
     string stream, ch;
     i = 0;
 
@@ -190,7 +192,6 @@ void Graph::parallel_BFS(int source)
             for (j = 0; j < queue[turn].size(); j++)
             {
                 source = queue[turn][j];
-                // cout << source << " ";
                 if(verbose) cout << "\nthread: " << omp_get_thread_num() << "  vertex: " << source << endl;
 
                 // Get all adjacent vertices of the dequeued vertex source
